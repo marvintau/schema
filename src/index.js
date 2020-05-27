@@ -1,3 +1,34 @@
+const trav = (data, schema, func) => {
+  if (typeof schema === 'string'){
+
+    return func({type: 'prim', data, schema});
+  
+  } else if (Array.isArray(schema)){
+
+    if (schema.length > 1 || schema.length === 0){
+      console.warn(`the Array schema should have length of 1, remaining will be omitted`);
+    }
+
+    if (!Array.isArray(data)){
+      throw TypeError(`${data} is not array`);
+    }
+
+    return data.map((elem) => trav(elem, schema[0], func));
+
+  } else if (schema.constructor === Object) {
+
+    if (data === undefined  || data.constructor !== Object){
+      throw TypeError(`the data should be an Object created from Object literal / Object.create() method`);
+    }
+
+    const entries = Object.entries(schema)
+          .map(([key, value]) => [key, trav(data[key], value, func)]);
+    
+    return Object.fromEntries(entries);
+  }
+}
+
+
 const validate = (data, schema) => {
 
   if (schema === undefined){
@@ -14,44 +45,26 @@ const validate = (data, schema) => {
     const type = 'prim';
 
     const ok = typeof data === schema;
-    const error = data === undefined 
-    ? 'undefined' 
-    : !ok 
-    ? 'mismatch' 
-    : undefined;
     
-    const suggest = {
-      string: '',
-      number: 0,
-      boolean: false,
-    }[schema]
-
-    return ok
-      ? { ok, type }
-      : error === 'undefined'
-      ? { ok, error, trace, suggest, type}
-      : { ok, error, trace, type};
+    return ok ? { ok, type } : { ok, trace, type};
   
   } else if (Array.isArray(schema) && schema.length === 1){
 
     const type = 'list';
     
     if (!Array.isArray(data)){
+
       const ok = false;
-      const suggest = [];
+      return {ok, trace, type}
 
-      return data === undefined
-      ? {ok, error: 'undefined', suggest, trace, type}
-      : {ok, error: 'mismatch', trace, type}
+    } else {
+
+      const subs = data.map((innerElem) => validate(innerElem, schema[0]));
+      const ok = subs.every(({ok}) => ok);
+      const trace = subs.filter(({ok}) => !ok);
+  
+      return ok ? {ok, type} : { ok, trace, type};
     }
-
-    const subs = data.map((innerElem) => validate(innerElem, schema[0]));
-    const ok = subs.every(({ok}) => ok);
-    const trace = subs.filter(({ok}) => !ok);
-
-    const error = !ok ? 'inner' : 'mismatch';
-
-    return { ok, trace, error, type}
 
   } else if (schema.constructor === Object){
 
@@ -60,7 +73,6 @@ const validate = (data, schema) => {
     if (data === undefined){
       const ok = false;
       const error = 'mismatch';
-      const suggest = {};
       return {ok, trace, error, suggest, type};
     }
 
@@ -75,19 +87,33 @@ const validate = (data, schema) => {
     return {ok, error, trace, type};
   }
 
-  return {ok: false, error:'unsupported', trace: {data, schema}, type: 'unknown'}
+  return {ok: false, trace, type: 'unknown'}
 }
 
-const create = (data, schema) => {
-  const {ok, error} = validate(data, schema);
-  if (ok){
-    return data;
-  } else if (error === 'undefined') {
-  } else {
-    throw TypeError(`data does not conform to given schema`)
+class Schema {
+  constructor(schema){
+    if (schema === undefined){
+      throw TypeError('schema cannot be undefined.');
+    }
+
+    this.schema = schema;
+  }
+
+  validate(data){
+    return validate(data, this.schema);
+  }
+
+  create(data){
+    
+    const {ok, trace} = validate(data, this.schema);
+    
+    if (ok){
+      return data;
+    } else {
+      console.log(trace, 'error');
+      throw TypeError(`data does not conform to given schema`)
+    }
   }
 }
 
-module.exports = {
-  validate
-}
+module.exports = Schema;
