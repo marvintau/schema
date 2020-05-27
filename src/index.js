@@ -6,7 +6,7 @@ const validate = (data, schema) => {
 
   const trace = {data, schema};
 
-  if (typeof type === 'string'){
+  if (typeof schema === 'string'){
 
     // for primitive type, if the data is undefined, e.g. the provided
     // data doesn't contain some keys provided by type.
@@ -28,7 +28,9 @@ const validate = (data, schema) => {
 
     return ok
       ? { ok, type }
-      : { ok, error, trace, suggest, type};
+      : error === 'undefined'
+      ? { ok, error, trace, suggest, type}
+      : { ok, error, trace, type};
   
   } else if (Array.isArray(schema) && schema.length === 1){
 
@@ -62,7 +64,7 @@ const validate = (data, schema) => {
       return {ok, trace, error, suggest, type};
     }
 
-    const subEntries = Object.entries(type).map(([k, innerType]) => {
+    const subEntries = Object.entries(schema).map(([k, innerType]) => {
       return [k, validate(data[k], innerType)]
     });
     const ok = subEntries.every(([,{ok}]) => ok);

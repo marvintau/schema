@@ -6,12 +6,12 @@ describe('validate', () => {
   test('prim data type', () => {
 
     // positive
-    expect(validate('123', 'string')).toEqual({ok:true, trace:{data: '123', type:'string'}, type: 'prim'});
-    expect(validate(true, 'boolean')).toEqual({ok:true, trace:{data: true, type:'boolean'}, type: 'prim'});
-    expect(validate(123, 'number')).toEqual({ok:true, trace:{data: 123, type:'number'}, type: 'prim'});
+    expect(validate('123', 'string')).toEqual({ok:true, type: 'prim'});
+    expect(validate(true, 'boolean')).toEqual({ok:true, type: 'prim'});
+    expect(validate(123, 'number')).toEqual({ok:true, type: 'prim'});
 
     // negative
-    expect(validate(123, 'string')).toEqual({ok:false, trace:{data: 123, type:'string'}, error: 'mismatch', type: 'prim'});
+    expect(validate(123, 'string')).toEqual({ok:false, trace:{data: 123, schema:'string'}, error: 'mismatch', type: 'prim'});
   })
 
   test('dict of prim', () => {
@@ -34,12 +34,12 @@ describe('validate', () => {
       isDone: 'true'
     }
 
-    const {ok} = validate(dataPos, schema);
-    const res = validate(dataPos2, schema);
-    expect(ok).toBe(true);
-    expect(res.ok).toBe(false);
+    const res1 = validate(dataPos, schema);
+    const res2 = validate(dataPos2, schema);
+    // expect(ok).toBe(fa);
+    // expect(res.ok).toBe(false);
 
-    console.log(res);
+    console.log(res1, dataPos, schema, 'yeaha ');
   })
 
   test('list of prim', () => {
@@ -82,6 +82,6 @@ describe('validate', () => {
 
   test('unexpected', () => {
     expect(() => validate({})).toThrow('You must provide type for validation');
-    expect(validate(123, 123)).toEqual({ok: false, trace:{data:123, type:123}, error:'unsupported', type: 'unknown'});
+    expect(validate(123, 123)).toEqual({ok: false, trace:{data:123, schema:123}, error:'unsupported', type: 'unknown'});
   })
 })
