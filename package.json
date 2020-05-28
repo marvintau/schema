@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "release": "standard-version",
-    "publish-package": "git push --follow-tags origin master && npm publish"
+    "publish-package": "git push --follow-tags origin master && npm publish --access public"
   },
   "jest": {
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$",
