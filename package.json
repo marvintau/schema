@@ -1,14 +1,47 @@
 {
   "name": "schema",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll --coverage --verbose"
+    "test": "jest --watchAll --coverage --verbose",
+    "build": "webpack --mode production",
+    "release": "standard-version"
+  },
+  "jest": {
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$",
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ],
+    "verbose": true
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "jest && node_modules/.bin/jest-badges-readme && git add 'README.md'",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^26.0.1"
+    "@babel/core": "^7.10.1",
+    "@babel/preset-env": "^7.10.1",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@olavoparno/jest-badges-readme": "^1.4.1",
+    "babel-jest": "^26.0.1",
+    "babel-loader": "^8.1.0",
+    "husky": "^4.2.5",
+    "jest": "^26.0.1",
+    "standard-version": "^8.0.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   }
 }
