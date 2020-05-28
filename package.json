@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll --coverage --verbose",
     "build": "webpack --mode production",
     "release": "standard-version"
   },
   "jest": {
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$",
     "coverageReporters": [
+      "json",
       "json-summary",
       "text",
       "lcov"
@@ -24,7 +24,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "jest && node_modules/.bin/jest-badges-readme && git add 'README.md'",
+      "pre-commit": "jest --coverage && node_modules/.bin/jest-badges-readme && git add 'README.md'",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },

@@ -1,4 +1,4 @@
-const {create} = require('./create');
+const {create} = require('../src/create');
 
 describe('create', () => {
   test('primitive', () => {

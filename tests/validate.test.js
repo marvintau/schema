@@ -1,5 +1,5 @@
 
-const {validate} = require('./validate');
+const {validate} = require('../src/validate');
 
 describe('validate', () => {
     

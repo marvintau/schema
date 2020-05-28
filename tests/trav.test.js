@@ -1,4 +1,4 @@
-const {trav} = require('./trav');
+const {trav} = require('../src/trav');
 
 describe('trav', () => {
 
