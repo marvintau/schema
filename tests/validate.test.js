@@ -39,6 +39,7 @@ describe('validate', () => {
 
     const data = {asd:'hahaha'};
     expect(validate(data, {asd: 'string'})).toHaveProperty('ok', true);
+    expect(validate({...data, bsd: 'yo'}, {asd: 'string'})).toHaveProperty('ok', true);
 
     expect(validate({asd: 'hshha'}, {asd:{cons: 456}})).toHaveProperty('ok', true);
 
