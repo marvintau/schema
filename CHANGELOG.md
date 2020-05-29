@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/marvintau/schema/compare/v0.0.5...v0.0.6) (2020-05-29)
+
+
+### Bug Fixes
+
+* added constant ([d5c23de](https://github.com/marvintau/schema/commit/d5c23dea3eba83e5fdc0e11c68baa4a2bbff1997))
+* added constant ([ff397dc](https://github.com/marvintau/schema/commit/ff397dc47a75197dd80c816d306eb191d7dbdf80))
+
 ### [0.0.5](https://github.com/marvintau/schema/compare/v0.0.4...v0.0.5) (2020-05-29)
 
 
