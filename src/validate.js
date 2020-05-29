@@ -4,6 +4,16 @@ const validate = (data, schema) => {
 
   const validFunc = ({type, data, schema}) => {
 
+    const from = (data, schema) => {
+      if (schema.from.length === 0){
+        throw TypeError('the enumerate options should contain at least one element');
+      }
+      
+      const trace = {data, schema};
+      const ok = schema.from.includes(data);
+      return ok ? {ok} : {ok, trace};
+    }
+
     const prim = (data, schema) => {
       const ok = typeof data === schema;
       const trace = {data, schema};
@@ -64,7 +74,7 @@ const validate = (data, schema) => {
       }
     }
 
-    const funcs = { prim, list, dict }
+    const funcs = { from, prim, list, dict }
 
     return (type in funcs) ? funcs[type](data, schema) : {ok: false};
   }

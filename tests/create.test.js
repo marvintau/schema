@@ -1,6 +1,11 @@
 const {create} = require('../src/create');
 
 describe('create', () => {
+
+  test('from', () => {
+    expect(create(123, {from:[123, 456]})).toHaveProperty('data', 123);
+  })
+
   test('primitive', () => {
 
     expect(create(123, 'number')).toHaveProperty('data', 123);

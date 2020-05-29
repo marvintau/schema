@@ -4,6 +4,12 @@ const create = (data, schema) => {
 
   const createFunc = ({type, data, schema}) => {
 
+    const from = (data, schema) =>{
+      return data !== undefined
+      ? {data}
+      : {data: schema.from[0]}
+    }
+
     const prim = (data, schema) => {
       const defaultData = {
         number: 0,
@@ -30,7 +36,7 @@ const create = (data, schema) => {
       : {data: Object.fromEntries(Object.entries(data).map(([k, {data}]) => [k, data]))}
     }
 
-    const funcs = { prim, list, dict};
+    const funcs = {from, prim, list, dict};
 
     return (type in funcs) ? funcs[type](data, schema) : {};
   }
