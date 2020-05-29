@@ -5,6 +5,8 @@ describe('validate', () => {
     
   test('from', () => {
     expect(validate(123, {from: [123, 'asd']})).toHaveProperty('ok', true);
+    expect(validate('asd', {from: [123, 'asd']})).toHaveProperty('ok', true);
+    expect(validate(false, {from: [123, 'asd']})).toHaveProperty('ok', false);
   })
 
   test('prim', () => {
