@@ -7,12 +7,13 @@ describe('create schema class', () => {
     expect(() => new Schema()).toThrow('Schema cannot be undefined.')
   })
 
-  test('create instanace', () => {
+  test('create & validate instanace', () => {
     const data = [123, 456];
     const schemaData = ['number'];
 
     const schema = new Schema(schemaData);
 
-    expect(schema.create(data)).toBe(create(data, schemaData));
+    expect(schema.create(data)).toEqual(create(data, schemaData));
+    expect(schema.validate(data)).toEqual(validate(data, schemaData));
   })
 })
