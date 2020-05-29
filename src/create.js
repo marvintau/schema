@@ -4,6 +4,10 @@ const create = (data, schema) => {
 
   const createFunc = ({type, data, schema}) => {
 
+    const cons = (_, {cons}) => {
+      return {data: cons};
+    }
+
     const from = (data, schema) =>{
       return data !== undefined
       ? {data}
@@ -36,7 +40,7 @@ const create = (data, schema) => {
       : {data: Object.fromEntries(Object.entries(data).map(([k, {data}]) => [k, data]))}
     }
 
-    const funcs = {from, prim, list, dict};
+    const funcs = {cons, from, prim, list, dict};
 
     return (type in funcs) ? funcs[type](data, schema) : {};
   }

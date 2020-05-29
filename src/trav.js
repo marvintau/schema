@@ -4,7 +4,11 @@ const trav = (data, schema, func) => {
     throw TypeError('Schema should be provided.');
   }
 
-  if (schema.from && Array.isArray(schema.from)){
+  if (schema.cons !== undefined){
+
+    return {data, ...func({type:'cons', data, schema})};
+
+  } else if (schema.from && Array.isArray(schema.from)){
 
     return {data, ...func({type:'from', data, schema})};
 

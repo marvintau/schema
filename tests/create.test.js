@@ -2,6 +2,10 @@ const {create} = require('../src/create');
 
 describe('create', () => {
 
+  test('cons', () => {
+    expect(create(123, {cons: 456})).toHaveProperty('data', 456);
+  })
+
   test('from', () => {
     expect(create(123, {from:[123, 456]})).toHaveProperty('data', 123);
   })
@@ -25,5 +29,9 @@ describe('create', () => {
 
     expect(create(undefined, [])).toHaveProperty('data', []);
     expect(create(undefined, {})).toHaveProperty('data', {});
+  })
+
+  test('dict', () => {
+    expect(create({}, {owl:{cons: 123}})).toHaveProperty(['data', 'owl'], 123);
   })
 })

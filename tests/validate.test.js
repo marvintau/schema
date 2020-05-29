@@ -3,6 +3,10 @@ const {validate} = require('../src/validate');
 
 describe('validate', () => {
     
+  test('cons', () => {
+    expect(validate(123, {cons: 456})).toHaveProperty('ok', true);
+  })
+
   test('from', () => {
     expect(validate(123, {from: [123, 'asd']})).toHaveProperty('ok', true);
     expect(validate('asd', {from: [123, 'asd']})).toHaveProperty('ok', true);
@@ -35,6 +39,8 @@ describe('validate', () => {
 
     const data = {asd:'hahaha'};
     expect(validate(data, {asd: 'string'})).toHaveProperty('ok', true);
+
+    expect(validate({asd: 'hshha'}, {asd:{cons: 456}})).toHaveProperty('ok', true);
 
   })
 
