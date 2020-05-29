@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/marvintau/schema/compare/v0.0.3...v0.0.4) (2020-05-29)
+
+
+### Bug Fixes
+
+* added tests ([dfb3d7a](https://github.com/marvintau/schema/commit/dfb3d7afe2a3f771cd58559f617fc197ec3a7ab9))
+* create Schema class to enclose details ([13130c2](https://github.com/marvintau/schema/commit/13130c2e8fef8e879c70cf6bdbeb1d81beb6b21b))
+* dadd test ([e251c9d](https://github.com/marvintau/schema/commit/e251c9d20b9ea04700a76dc452e757abed88dad7))
+
 ### [0.0.3](https://github.com/marvintau/schema/compare/v0.0.2...v0.0.3) (2020-05-28)
 
 
