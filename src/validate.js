@@ -19,7 +19,14 @@ const validate = (data, schema) => {
     }
 
     const prim = (data, schema) => {
-      const ok = typeof data === schema;
+
+      let ok;
+      if (schema === 'integer') {
+        ok = Number.isInteger(data);
+      } else {
+        ok = typeof data === schema;
+      }
+
       const trace = {data, schema};
 
       return ok ? {ok} : {ok, trace};

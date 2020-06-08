@@ -14,6 +14,9 @@ describe('validate', () => {
   })
 
   test('prim', () => {
+    
+    expect(validate(123, 'integer')).toHaveProperty('ok', true);
+    expect(validate(123.4, 'integer')).toHaveProperty('ok', false);
 
     expect(validate(123, 'number')).toHaveProperty('ok', true);
     expect(validate('123', 'string')).toHaveProperty('ok', true);
