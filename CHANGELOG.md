@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/marvintau/schema/compare/v0.0.6...v0.0.7) (2020-06-08)
+
+
+### Bug Fixes
+
+* added integer type to primitive type ([b7a315c](https://github.com/marvintau/schema/commit/b7a315ccda8a26115c5be5e5c5d3ec2eb122cc0a))
+
 ### [0.0.6](https://github.com/marvintau/schema/compare/v0.0.5...v0.0.6) (2020-05-29)
 
 
